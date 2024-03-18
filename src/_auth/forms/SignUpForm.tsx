@@ -15,13 +15,18 @@ import { SignUpValidation } from "@/lib/validation";
 import { Loader } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import { useCreateAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutatuions";
+import {
+  useCreateAccount,
+  useSignInAccount,
+} from "@/lib/react-query/queriesAndMutatuions";
 
 const SignUpForm = () => {
   const { toast } = useToast();
 
-  const {mutateAsync: createUserAccount, isLoading: isCreatingUser} = useCreateAccount()
-  const {mutateAsync: signInAccount,isLoading:isSignin}=useSignInAccount() 
+  const { mutateAsync: createUserAccount, isPending: isCreatingUser } =
+    useCreateAccount();
+  const { mutateAsync: signInAccount, isPending: isSignIn } =
+    useSignInAccount();
   const form = useForm<z.infer<typeof SignUpValidation>>({
     resolver: zodResolver(SignUpValidation),
     defaultValues: {
@@ -44,12 +49,13 @@ const SignUpForm = () => {
       });
     }
     const session = await signInAccount({
-      email: values.email, password: values.password
-    })
-    if(!session){
+      email: values.email,
+      password: values.password,
+    });
+    if (!session) {
       return toast({
-        title: 'sign in failed,try again'
-      })
+        title: "sign in failed,try again",
+      });
     }
   }
 

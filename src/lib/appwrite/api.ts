@@ -16,8 +16,8 @@ export async function createUserAccount(user: INewUser) {
       accountId: newAccount.$id,
       name: newAccount.name,
       email: newAccount.email,
+      userName: user.userName,
       imageUrl: avatarUrl,
-      username: user.username,
     });
     return newUser;
   } catch (error) {
@@ -30,14 +30,16 @@ export async function saveUserToDB(user: {
   email: string;
   name: string;
   imageUrl: URL;
-  username?: string;
+  userName?: string;
 }) {
   try {
+    console.log(user);
+    
     const newUser = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       ID.unique(),
-      user
+      user,
     );
     return newUser;
   } catch (error) {

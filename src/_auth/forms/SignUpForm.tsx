@@ -2,6 +2,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -19,11 +20,13 @@ import {
   useCreateAccount,
   useSignInAccount,
 } from "@/lib/react-query/queriesAndMutatuions";
+import { useUserContext } from "@/context/AuthContext";
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
-
-  const { mutateAsync: createUserAccount, isPending: isCreatingUser } =
+  const { checkAuthUser, isPending } = useUserContext();
+  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
     useCreateAccount();
   const { mutateAsync: signInAccount, isPending: isSignIn } =
     useSignInAccount();
@@ -31,7 +34,7 @@ const SignUpForm = () => {
     resolver: zodResolver(SignUpValidation),
     defaultValues: {
       name: "",
-      username: "",
+      userName: "",
       email: "",
       password: "",
     },
@@ -39,13 +42,13 @@ const SignUpForm = () => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignUpValidation>) {
-    console.log("some shit");
+    console.log("some shit", values);
 
     const newUser = await createUserAccount(values);
 
     if (!newUser) {
       return toast({
-        title: "cannot to sign up. Try again.",
+        title: "cannot to sign up. Try again.?",
       });
     }
     const session = await signInAccount({
@@ -54,7 +57,16 @@ const SignUpForm = () => {
     });
     if (!session) {
       return toast({
-        title: "sign in failed,try again",
+        title: "sign in failed,try again..",
+      });
+    }
+    const isLoggedIn = await checkAuthUser();
+    if (isLoggedIn) {
+      form.reset();
+      navigate("/");
+    } else {
+      return toast({
+        title: "sign up failed, please try again",
       });
     }
   }
@@ -89,7 +101,7 @@ const SignUpForm = () => {
           />
           <FormField
             control={form.control}
-            name="username"
+            name="userName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
@@ -127,7 +139,7 @@ const SignUpForm = () => {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isCreatingUser ? (
+            {isCreatingAccount ? (
               <div className="flex-center gap-2">
                 <Loader />
                 Loading

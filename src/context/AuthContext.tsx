@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const INITIAL_USER = {
   id: "",
   name: "",
-  username: "",
+  userName: "",
   email: "",
   imageUrl: "",
   bio: "",
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser({
           id: currentAccount.$id,
           name: currentAccount.name,
-          username: currentAccount.username,
+          userName: currentAccount.userName,
           imageUrl: currentAccount.imageUrl,
           email: currentAccount.email,
           bio: currentAccount.bio,
@@ -52,8 +52,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (
       localStorage.getItem("cookieFallback") === "[]" ||
       localStorage.getItem("cookieFallback") === null
-    )
-      navigate("/sign-in");
+    ) navigate("/sign-in");
     checkAuthUser();
   }, []);
 

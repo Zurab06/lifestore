@@ -1,4 +1,3 @@
-import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -51,7 +50,7 @@ const NewPost = await createPost({
       toast({title: 'please try again'})
     console.log(values);
   }
-    navigate('/')}
+    navigate('/')
   return (
     <Form {...form}>
       <form

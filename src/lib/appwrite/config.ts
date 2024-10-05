@@ -4,9 +4,9 @@ export const appwriteConfig = {
   // url: "https://cloud.appwrite.io/v1",
   url: import.meta.env.VITE_APPWRITE_PROJECT_URL,
   projectId: import.meta.env.VITE_APPWRITE_PROJECT_ID,
-  databaseId: '65c2a77716c64ff3be65',
+  databaseId: "65c2a77716c64ff3be65",
   storageId: import.meta.env.VITE_APPWRITE_STORAGE_ID,
-  userCollectionId: '65c2a8ade0c29edfc566' ,
+  userCollectionId: "65c2a8ade0c29edfc566",
   postCollectionId: import.meta.env.VITE_APPWRITE_POST_COLLECTION_ID,
   savesCollectionId: import.meta.env.VITE_APPWRITE_SAVES_COLLECTION_ID,
 };
@@ -19,7 +19,6 @@ export const databases = new Databases(client);
 export const storage = new Storage(client);
 export const avatars = new Avatars(client);
 console.log(import.meta.env);
-
 
 // VITE_APPWRITE_PROJECT_URL='https://cloud.appwrite.io/v1'
 // VITE_APPWRITE_PROJECT_ID='65c119043ba0df3146ea',

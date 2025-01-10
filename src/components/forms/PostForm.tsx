@@ -22,36 +22,39 @@ import { useToast } from "../ui/use-toast";
 import { useCreatePost } from "@/lib/react-query/queriesAndMutatuions";
 
 type PostFormProps = {
-  post?: Models.Document
-}
+  post?: Models.Document;
+  action: "Create" | "Update";
+};
 
-const PostForm = ({post}: PostFormProps) => {
-  const {user} = useUserContext()
-  const {mutateAsync: createPost,isPending:isLoadingCreate}=useCreatePost()
-  const navigate = useNavigate()
-const {toast} = useToast()
+const PostForm = ({ post, action }: PostFormProps) => {
+  const { user } = useUserContext();
+  const { mutateAsync: createPost, isPending: isLoadingCreate } =
+    useCreatePost();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
-      caption: post ? post?.caption: '',
+      caption: post ? post?.caption : "",
       file: [],
-      location: post ? post?.caption : '',
-      tags: post ? post.tags.join(',') : ''
+      location: post ? post?.caption : "",
+      tags: post ? post.tags.join(",") : "",
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
-   
-const NewPost = await createPost({
-  ...values, userId: user.id,
-})
-    if(!NewPost){
-      toast({title: 'please try again'})
-    console.log(values);
+    const NewPost = await createPost({
+      ...values,
+      userId: user.id,
+    });
+    if (!NewPost) {
+      toast({ title: "please try again" });
+      console.log(values);
+    }
+    navigate("/");
   }
-    navigate('/')}
   return (
     <Form {...form}>
       <form
@@ -81,7 +84,10 @@ const NewPost = await createPost({
             <FormItem>
               <FormLabel className="shad-form_label">Add photos</FormLabel>
               <FormControl>
-                <FileUploader fieldChange={field.onChange} mediaUrl={post?.imageUrl} />
+                <FileUploader
+                  fieldChange={field.onChange}
+                  mediaUrl={post?.imageUrl}
+                />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
@@ -136,7 +142,6 @@ const NewPost = await createPost({
       </form>
     </Form>
   );
-
 };
 
-export default PostForm
+export default PostForm;

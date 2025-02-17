@@ -17,7 +17,7 @@ const EditPost = () => {
             width={36}
             height={36}
           />
-          <h2 className="h3-bold md:h2-bold text-left w-full">Create post</h2>
+          <h2 className="h3-bold md:h2-bold text-left w-full">Update post</h2>
         </div>
         <PostForm action="Update" post={post} />
       </div>

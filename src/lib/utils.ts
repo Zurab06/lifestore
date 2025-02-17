@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function timeAgo(dateString: string): string {
+export function timeAgo(dateString: string ): string {
   const now: Date = new Date();
   const date: Date = new Date(dateString);
   const diffInSeconds: number = Math.floor(

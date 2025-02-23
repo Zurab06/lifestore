@@ -26,7 +26,7 @@ import {
 
 type PostFormProps = {
   post?: Models.Document;
-  action: "Create" | "Update";
+  action: "создать" | "обновить";
 };
 
 const PostForm = ({ post, action }: PostFormProps) => {
@@ -52,7 +52,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
-    if (post && action === "Update") {
+    if (post && action === "обновить") {
       console.log('');
       
       const updatedPost = await updatePost({
@@ -89,7 +89,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+              <FormLabel className="shad-form_label">описание</FormLabel>
               <FormControl>
                 <Textarea
                   className="shad-textarea custom-scrollbar"
@@ -105,7 +105,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add photos</FormLabel>
+              <FormLabel className="shad-form_label">добавить фото</FormLabel>
               <FormControl>
                 <FileUploader
                   fieldChange={field.onChange}
@@ -122,7 +122,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Location</FormLabel>
+              <FormLabel className="shad-form_label">добавить местоположение</FormLabel>
               <FormControl>
                 <Input type="text" className="shad-input" {...field} />
               </FormControl>
@@ -136,7 +136,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add tags</FormLabel>
+              <FormLabel className="shad-form_label">теги</FormLabel>
               <FormControl>
                 <Input
                   type="text"
@@ -152,7 +152,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
 
         <div className="flex gap-4 items-center justify-end">
           <Button type="button" className="shad-button_dark_4">
-            Cancel
+            отменить
           </Button>
 
           <Button
@@ -161,7 +161,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
             disabled={isLoadingCreate || isLoadingUpdate}
           >
             {isLoadingCreate || isLoadingUpdate && "Loading.."}
-            {action} Post
+            {action} пост
           </Button>
         </div>
       </form>

@@ -36,7 +36,7 @@ const SignInForm = () => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignInValidation>) {
-    console.log("some shit", values);
+    
 
     const session = await signInAccount({
       email: values.email,
@@ -44,7 +44,7 @@ const SignInForm = () => {
     });
     if (!session) {
       return toast({
-        title: "sign in failed,try again..",
+        title: "ошибка при входе,попытайтесь еще раз",
       });
     }
     const isLoggedIn = await checkAuthUser();
@@ -56,7 +56,7 @@ const SignInForm = () => {
       navigate("/");
     } else {
       return toast({
-        title: "sign up failed, please try again",
+        title: "ошибка при регистрации,попытайтесь еще раз",
       });
     }
   }
@@ -68,7 +68,7 @@ const SignInForm = () => {
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Log in</h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
-          enter your data
+          введите данные
         </p>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -92,7 +92,7 @@ const SignInForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Пароль</FormLabel>
                 <FormControl>
                   <Input type="password" className=" shad-input" {...field} />
                 </FormControl>
@@ -104,19 +104,19 @@ const SignInForm = () => {
             {isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader />
-                Loading
+                Загрузка
               </div>
             ) : (
               "sign in"
             )}
           </Button>
           <p className="text-small-regular text-light-2 text-center mt-2">
-            Already have an account?
+            Уже есть аккаунт??
             <Link
               to="/sign-up"
               className="text-primary-500 text-small-semibold ml-2"
             >
-              sign up
+              регистрация
             </Link>
           </p>
         </form>

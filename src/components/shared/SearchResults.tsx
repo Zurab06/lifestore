@@ -1,7 +1,7 @@
 import { Models } from "appwrite";
-import React from "react";
+
 import Loader from "./Loader";
-import { Grid } from "lucide-react";
+
 import GridPostList from "./GridPostList";
 
 type SearchResultsProps = {

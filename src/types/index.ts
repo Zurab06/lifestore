@@ -25,19 +25,19 @@ export type IUpdateUser = {
 };
 
 export type INewPost = {
-  userId: string;
-  caption: string;
-  file: File[];
+  userId?: string;
+  caption?: string;
+  file?: File[];
   location?: string;
   tags?: string;
 };
 
 export type IUpdatePost = {
-  postId: string;
-  caption: string;
-  imageId: string;
-  imageUrl: URL;
-  file: File[];
+  postId?: string;
+  caption?: string;
+  imageId?: string;
+  imageUrl?: URL;
+  file?: File[];
   location?: string;
   tags?: string;
 };
@@ -52,8 +52,8 @@ export type IUser = {
 };
 
 export type INewUser = {
-  name: string;
-  email: string;
-  userName: string;
-  password: string;
+  name?: string;
+  email?: string;
+  userName?: string;
+  password?: string;
 };

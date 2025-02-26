@@ -5,7 +5,6 @@ import { useUserContext } from "@/context/AuthContext";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutatuions";
 import { timeAgo } from "@/lib/utils";
 
-import React from "react";
 import { useParams, Link } from "react-router-dom";
 
 const PostDetails = () => {
